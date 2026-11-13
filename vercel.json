@@ -1,0 +1,30 @@
+
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "agentpulse-main": {
+      "root": "AgentPulse-main",
+      "framework": "fastapi"
+    },
+    "agentpulse-ui": {
+      "root": "AgentPulse-UI/agentpulse-ui",
+      "framework": "nextjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "agentpulse-main",
+          "format": "url",
+          "env": "AGENTPULSE_BACKEND_URL"
+        }
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "agentpulse-ui"
+      }
+    }
+  ]
+}
